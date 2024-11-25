@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:http_proxy/http_proxy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:obtainium/pages/home.dart';
@@ -100,6 +101,8 @@ void main() async {
   } catch (e) {
     // Already added, do nothing (see #375)
   }
+  HttpProxy httpProxy = await HttpProxy.createHttpProxy();
+  HttpOverrides.global = httpProxy;
   await EasyLocalization.ensureInitialized();
   if ((await DeviceInfoPlugin().androidInfo).version.sdkInt >= 29) {
     SystemChrome.setSystemUIOverlayStyle(
